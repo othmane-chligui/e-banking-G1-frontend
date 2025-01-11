@@ -9,32 +9,32 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   isAutenticated:boolean = false;
   roles:any;
-  username:any;
+  email:any;
   accessToken!: any;
 
   constructor(private http:HttpClient ,private router:Router) { }
 
-    public Login(username : string, password : string){
+    public Login(email : string, password : string){
       let options = {
-        headers : new HttpHeaders().set("Content-Type","application/x-www-form-urlencoded")
+        headers : new HttpHeaders().set("Content-Type","application/json")
       }
 
-      let params = new HttpParams()
-      .set("username", username).set("password", password);
+      let params = {email:email,password:password};
     return this.http.post("http://localhost:8085/auth/login", params, options)
   }
   loadProfile(data:any){
     this.isAutenticated=true;
     this.accessToken = data['access-token']; 
     let decodedJwt:any = jwtDecode(this.accessToken);
-    this.username=decodedJwt.sub;
-    this.roles=decodedJwt.scope;
+    console.log(decodedJwt);
+    this.email=decodedJwt.sub;
+    this.roles=decodedJwt.roles;
     window.localStorage.setItem("jwt-token",this.accessToken);
   }
   Logout(){
     this.isAutenticated=false;
     this.accessToken=undefined;
-    this.username=undefined;
+    this.email=undefined;
     this.roles=undefined;
     window.localStorage.removeItem("jwt-token");
     this.router.navigateByUrl("/login");

@@ -12,13 +12,13 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/admin/accounts">Accounts</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="authService.roles.includes('ROLE_ADMIN')">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Customers
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
             <li><a class="dropdown-item" routerLink="/admin/customers">Search customers</a></li>
-            <li *ngIf="authService.roles.includes('ADMIN')"><a class="dropdown-item" routerLink="/admin/new-customer">New customer</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/new-customer">New customer</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -26,7 +26,7 @@
         </li>
       </ul>
       <ul class="navbar" *ngIf="authService.isAutenticated==true" >
-        <li class="nav-item"><p class="text-danger">{{this.authService.username}}</p></li>
+        <li class="nav-item"><p class="text-danger">{{this.authService.email}}</p></li>
         <li class="nav-item"><button (click)="handleLogout()" class="btn btn-success">Logout</button></li>
       </ul>
     </div>

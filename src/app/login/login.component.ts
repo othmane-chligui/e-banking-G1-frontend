@@ -15,14 +15,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { 
     this.formLogin = this.fb.group({
-      username:this.fb.control(""),
+      email:this.fb.control(""),
       password:this.fb.control("")
     })
   }
   handleLogin(){
-    let username =this.formLogin.value.username;
+    let email =this.formLogin.value.email;
     let pwd =this.formLogin.value.password;
-    this.authService.Login(username,pwd).subscribe({
+    this.authService.Login(email,pwd).subscribe({
       next : data =>{
           this.authService.loadProfile(data);
           this.router.navigateByUrl("/admin");

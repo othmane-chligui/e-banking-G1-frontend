@@ -15,9 +15,9 @@ const routes: Routes = [
   { path :"", redirectTo : "/login", pathMatch:"full"},
   { path :"admin", component : AdminTemplateComponent, canActivate:[AuthenticationGuard],
     children:[
-    { path :"customers", component : CustomersComponent},
+    { path :"customers", component : CustomersComponent,canActivate:[AuthorizationGuard],data:{role:"ROLE_ADMIN"}},
     { path :"accounts", component : AccountsComponent},
-    { path :"new-customer", component : NewCustomerComponent,canActivate:[AuthorizationGuard],data:{role:"ADMIN"} },
+    { path :"new-customer", component : NewCustomerComponent,canActivate:[AuthorizationGuard],data:{role:"ROLE_ADMIN"} },
     { path :"customer-accounts/:id", component : CustomerAccountsComponent},
     { path :"notAuthorized", component : NotAuthorizedComponent}
   ]}
